@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GetInstance.CS" Version="0.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
+    <PackageReference Include="itextsharp.xmlworker" Version="5.5.13.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+    <PackageReference Include="Tesseract" Version="5.2.0" />
+    <PackageReference Include="Tesseract.Drawing" Version="5.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Invoices\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Invoices\AM22-LOS-05051.pdf" />
+  </ItemGroup>
+
+</Project>
