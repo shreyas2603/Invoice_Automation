@@ -1,0 +1,263 @@
+﻿@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@model List<TessInvoice.Controllers.ExtractedDataModel>
+
+@{
+    ViewData["Title"] = "View Invoice Data";
+}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+
+<style>
+    body {
+        background-image: url('@Url.Content("~/img12.jpg")');
+    }
+    /* Add some basic styling to the table */
+    #invoiceTable {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px; /* Add margin between the table and the elements above */
+    }
+
+        #invoiceTable th, #invoiceTable td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #invoiceTable th {
+            background-color: #0056b3;
+        }
+
+        /* Add hover effect to rows */
+        #invoiceTable tr:hover {
+            background-color: lightblue;
+        }
+
+    /* Add margin to the title and search box */
+    h2 {
+        margin-bottom: 10px;
+    }
+
+    .dataTables_filter {
+        margin-bottom: 10px;
+    }
+
+    .page-title {
+        font-size: 24px;
+        color: black;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 15px;
+    }
+
+    .dataTables_length label, .dataTables_filter label {
+        font-size: 20px;
+        color: black; /* Change the font color of "Show [x] Entries" and "Search" labels */
+    }
+
+    .dataTables_filter input[type="search"] {
+        font-size: 20px;
+        color: black; /* Change the font color of the search input */
+        background-color: white;
+    }
+
+    .dataTables_length select {
+        color: black;
+        font-size: 20px;
+    }
+
+    /* Custom styles for the navigation bar header */
+    .header {
+        background-color: #343a40; /* Background color of the header */
+        margin: 0; /* Remove any margin */
+        padding: 5px 0; /* Add some padding above and below the navigation bar */
+        /* Add a box shadow to give a subtle depth effect */
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        position: fixed; /* Fixed position to keep the navigation bar at the top */
+        top: 0; /* Align at the top of the page */
+        left: 0; /* Align at the left of the page */
+        width: 100%; /* Full width */
+        z-index: 1000; /* Ensure the navigation bar is on top of other content */
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #343a40;
+        color: white;
+        padding: 25px;
+        text-align: center;
+        z-index: 100; /* Set a higher z-index value */
+        margin: 0;
+    }
+
+    /* Style for the navigation links in the navigation bar */
+    .navbar-nav .nav-link {
+        color: white; /* Text color of the links */
+        font-size: 16px; /* Font size of the links */
+        padding: 10px 20px; /* Add padding to the links for better spacing */
+        transition: background-color 0.3s; /* Smooth transition effect for background color */
+        margin-right: 10px;
+        border-radius: 50px;
+    }
+
+        /* Change the background color of the navigation links on hover */
+        .navbar-nav .nav-link:hover {
+            background-color: #555; /* Darker background color on hover */
+        }
+
+    /* Style for the active navigation link */
+    .navbar-nav .nav-item.active .nav-link {
+        background-color: #007bff; /* Active link background color */
+    }
+
+    /* Style for the "Sign Out" button */
+    .navbar-nav .nav-item.signout .nav-link {
+        background-color: #dc3545; /* Red background color for the sign out button */
+    }
+
+    .navbar-nav.ml-auto {
+        margin-left: auto;
+    }
+    /* Center the company name in the navigation bar */
+    .navbar-brand {
+        margin: 0 auto;
+        padding-left: 20px;
+        font-family: 'Poppins'; /* Add some padding to the left for better spacing */
+    }
+
+    /* Style for the logo image */
+    .navbar-logo {
+        height: 40px; /* Adjust the height as needed */
+        margin-right: 10px; /* Add some space between the logo and the brand name */
+        width: 40px;
+    }
+
+    .view-invoice-button {
+        padding: 5px 10px;
+        font-size: 14px;
+        background-color: #007bff;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+
+    /* Style for the modal */
+    .modal-header {
+        background-color: #007bff;
+        color: white;
+        border-bottom: none;
+    }
+
+    .modal-title {
+        font-size: 18px;
+    }
+
+    .modal-content {
+        border-radius: 5px;
+    }
+
+    /* Style for the iframe */
+    #invoiceFrame {
+        border: none;
+    }
+</style>
+
+<div class="header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container">
+            <a href="/Invoice/ExtractData">
+                <img src="~/img2.png" alt="Logo" class="navbar-logo" />
+            </a>
+            <a class="navbar-brand">TITAN</a>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Invoice/ExtractData">Home</a>
+                    </li>
+                    <li class="nav-item ml-auto">
+                        <a class="nav-link" href="/Invoice/Login">Sign Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+<div class="page-title" style="margin-top: 80px;">
+    <!-- Adjust margin-top to create space between header and title -->
+    @ViewData["Title"]
+
+
+</div>
+
+
+
+<table id="invoiceTable">
+    <thead>
+        <tr>
+            <th>Invoice Number</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>File Name</th>
+            <th>View Invoice</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.InvoiceNumber</td>
+                <td>@item.Date</td>
+                <td>@item.Amount</td>
+                <td>@item.FileName</td>
+                <td>
+                    <button class="btn btn-primary view-invoice" data-invoice-number="@item.FileName">View Invoice</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Modal for viewing the PDF -->
+<div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pdfModalLabel">View Invoice</h5>
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>-->
+            </div>
+            <div class="modal-body">
+                <iframe id="pdfViewer" style="width: 100%; height: 500px;"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="path/to/bootstrap.min.css">
+
+    <script src="path/to/jquery.min.js"></script>
+    <script src="path/to/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#invoiceTable').DataTable();
+        });
+
+        // JavaScript function to view the PDF using AJAX and open modal
+        $('.view-invoice').click(function () {
+
+            var filename = $(this).data('invoice-number');
+            var pdfUrl = '../Invoices/' + filename;
+            $('#pdfViewer').attr('src', pdfUrl);
+            $('#pdfModal').modal('show');
+        });
+    </script>
+}

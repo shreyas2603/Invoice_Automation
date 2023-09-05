@@ -1,0 +1,361 @@
+﻿@{
+    ViewData["Title"] = "INVOICE DATA AUTOMATION";
+}
+@{
+    ViewData["Sub"] = "Simplies the task";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-image: url('@Url.Content("~/Home.png")');
+        }
+
+        /* Styling for the file input */
+        input[type="file"] {
+            background-color: white;
+            box-shadow: 2px 4px 2px 0px #888888;
+            width: 100%;
+            padding: 10px 20px;
+            border-radius: 30px;
+            align-items: center;
+            margin-left: auto;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+            input[type="file"]:hover {
+                background-color: lightseagreen;
+            }
+
+        .upload-box {
+            padding-block-start: 28px;
+            padding-block-end: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .upload-button {
+            background-color: white;
+            border: none;
+            width: 150%;
+            color: black;
+            padding: 10px 20px; /* Adjust padding for smaller button height */
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.5s ease-in-out;
+            align-self: center;
+        }
+
+            .upload-button:hover {
+                background-color: lightgoldenrodyellow;
+            }
+
+        .upload-button2 {
+            background-color: white;
+            border: none;
+            box-shadow: 2px 4px 2px 0px #888888;
+            width: 70%;
+            color: black;
+            padding: 12px 20px; /* Adjust padding for smaller button height */
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.5s ease-in-out;
+            margin: 10px 0;
+            align-self: center;
+        }
+
+            .upload-button2:hover {
+                background-color: lightcoral;
+            }
+
+
+        /*.data-button {
+                            background-color: red;
+                            border: none;
+                            color: white;
+
+                            padding: 10px 20px;
+                            text-align: center;
+                            text-decoration: none;
+                            font-size: 16px;
+                            border-radius: 7px;
+                            cursor: pointer;
+                            transition: background-color 0.3s ease-in-out;
+                            margin-top: 20px;
+                        }*/
+
+        .data-button:hover {
+            background-color: darkred;
+        }
+
+        #pdfFileName {
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        #extractedData {
+            margin-top: 30px;
+            color: black;
+            border: 3px solid #ddd;
+            border-color: black;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: left;
+            max-width: 500px;
+            padding-top: 15px;
+            margin: auto;
+        }
+
+            #extractedData h3 {
+                margin-top: 0;
+            }
+
+            #extractedData p {
+                margin: 0;
+            }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            margin-top: 15px;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            margin-left: auto;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .close {
+            color: #888;
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        .upload-button,
+        .view-button {
+            margin-right: 25px;
+        }
+
+        /* Custom styles for the navigation bar header */
+        .header {
+            background-color: #343a40; /* Background color of the header */
+            margin: 0; /* Remove any margin */
+            padding: 5px 0; /* Add some padding above and below the navigation bar */
+            /* Add a box shadow to give a subtle depth effect */
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed; /* Fixed position to keep the navigation bar at the top */
+            top: 0; /* Align at the top of the page */
+            left: 0; /* Align at the left of the page */
+            width: 100%; /* Full width */
+            z-index: 1000; /* Ensure the navigation bar is on top of other content */
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #343a40;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            z-index: 100; /* Set a higher z-index value */
+            margin: 0;
+        }
+
+        /* Style for the navigation links in the navigation bar */
+        .navbar-nav .nav-link {
+            color: white; /* Text color of the links */
+            font-size: 16px; /* Font size of the links */
+            border-radius: 50px;
+            padding: 10px 20px; /* Add padding to the links for better spacing */
+            transition: background-color 0.3s; /* Smooth transition effect for background color */
+        }
+
+            /* Change the background color of the navigation links on hover */
+            .navbar-nav .nav-link:hover {
+                background-color: #555; /* Darker background color on hover */
+            }
+
+        /* Style for the active navigation link */
+        .navbar-nav .nav-item.active .nav-link {
+            background-color: #007bff; /* Active link background color */
+        }
+
+        .navbar-nav.ml-auto {
+            margin-left: auto;
+        }
+        /* Style for the "Sign Out" button */
+        .navbar-nav .nav-item.signout .nav-link {
+            background-color: #dc3545; /* Red background color for the sign out button */
+        }
+
+        /* Center the company name in the navigation bar */
+        .navbar-brand {
+            margin: 0 auto;
+            padding-left: 20px; /* Add some padding to the left for better spacing */
+        }
+
+        /* Style for the logo image */
+        .navbar-logo {
+            height: 40px; /* Adjust the height as needed */
+            margin-right: 10px; /* Add some space between the logo and the brand name */
+            width: 40px;
+        }
+
+        .popup-content {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            background-color: white;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .close-btn {
+            float: right;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <h1 align="center" style="font-family: Poppins, sans-serif;color:black;font-size:45px;letter-spacing: 1px;font-weight: bold;">
+
+        @ViewData["Title"]
+    </h1>
+    <h6 align="center" style="font-family: 'OCR A';color:grey; sans-serif;font-weight: bold;">
+        @ViewData["Sub"]
+    </h6>
+
+    <div class="header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <div class="container">
+                <a href="#">
+                    <img src="~/img2.png" alt="Logo" class="navbar-logo" />
+                </a>
+                <a class="navbar-brand" style="font-family:Poppins">TITAN</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="navbar-nav ml-auto"><a class="nav-link" href="/Invoice/ViewInvoiceData">View Invoice Data</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Invoice/Login">Sign Out</a>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="upload-box">
+        @using (Html.BeginForm("ExtractData", "Invoice", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <label class="">
+
+                <input type="file" name="pdfFile" onchange="displayFileName()" accept=".pdf" />
+            </label>
+            <br />
+            <span id="pdfFileName" style="color:lightgrey"></span>
+            <br />
+            <button class="upload-button2" onclick="showExtractedDataModal()">Extract Data</button>
+
+            //<button type="button" class="data-button" onclick="location.href='@Url.Action("ViewInvoiceData", "Invoice")'">View Invoice Data</button>
+        }
+    </div>
+    <div id="extractedDataModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeExtractedDataModal()">&times;</span>
+            <h3>Extracted Data</h3>
+            <p><strong>Invoice Number:</strong> <span id="modalInvoiceNumber"></span></p>
+            <p><strong>Date:</strong> <span id="modalDate"></span></p>
+            <p><strong>Amount:</strong> <span id="modalAmount"></span></p>
+        </div>
+    </div>
+
+    @if (ViewBag.ExtractedData != null)
+    {
+        <div id="extractedData">
+            <h3>Extracted Data</h3>
+            <p><strong>Invoice Number:</strong> @ViewBag.ExtractedData.InvoiceNumber</p>
+            <p><strong>Date:</strong> @ViewBag.ExtractedData.Date</p>
+            <p><strong>Amount:</strong> @ViewBag.ExtractedData.Amount</p>
+        </div>
+    }
+
+
+    <script>
+        function displayFileName() {
+            var fileInput = document.querySelector('input[type="file"]');
+            var fileNameSpan = document.getElementById('pdfFileName');
+            fileNameSpan.textContent = fileInput.files[0] ? fileInput.files[0].name : 'No file selected';
+        }
+
+        function showExtractedDataModal() {
+            var modal = document.getElementById('extractedDataModal');
+
+            // Populate the modal with extracted data
+            var extractedData = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.ExtractedData))');
+            document.getElementById('modalInvoiceNumber').textContent = extractedData.InvoiceNumber || 'N/A';
+            document.getElementById('modalDate').textContent = extractedData.Date || 'N/A';
+            document.getElementById('modalAmount').textContent = extractedData.Amount || 'N/A';
+
+            modal.style.display = 'block';
+        }
+
+        function closeExtractedDataModal() {
+            var modal = document.getElementById('extractedDataModal');
+            modal.style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>

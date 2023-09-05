@@ -1,0 +1,177 @@
+﻿@model TessInvoice.Models.ViewModels.LoginViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Invoice Automation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+    <style>
+
+        body {
+            background-image: url('@Url.Content("~/img7.jpg")');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+
+
+        .login-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: White;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        input[type=text] {
+            border: 3px solid #ccc;
+            border-color: white;
+            width: 28%;
+            align-items: center;
+            margin-left: 400px;
+        }
+
+        input[type=password] {
+            border: 3px solid #ccc;
+            border-color: white;
+            width: 28%;
+            align-items: center;
+            margin-left: 400px;
+        }
+
+        button[type=submit] {
+            border: 3px solid #ccc;
+            border-color: white;
+            width: 28%;
+            align-items: center;
+            margin-left: 400px;
+        }
+
+
+
+        .form-control {
+            border: 3px solid #ccc;
+            border-radius: 4px;
+            color: black;
+            padding: 10px;
+        }
+
+        .login-button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+            .login-button:hover {
+                background-color: #0056b3;
+            }
+
+        /* Custom styles for the navigation bar header */
+        .header {
+            background-color: #343a40; /* Background color of the header */
+            margin: 0; /* Remove any margin */
+            padding: 5px 0; /* Add some padding above and below the navigation bar */
+            /* Add a box shadow to give a subtle depth effect */
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed; /* Fixed position to keep the navigation bar at the top */
+            top: 0; /* Align at the top of the page */
+            left: 0; /* Align at the left of the page */
+            width: 100%; /* Full width */
+            z-index: 1000; /* Ensure the navigation bar is on top of other content */
+        }
+
+        /* Style for the footer */
+
+
+
+        /* Style for the navigation links in the navigation bar */
+        .navbar-nav .nav-link {
+            color: white; /* Text color of the links */
+            font-size: 16px; /* Font size of the links */
+            padding: 10px 20px; /* Add padding to the links for better spacing */
+            transition: background-color 0.3s; /* Smooth transition effect for background color */
+        }
+
+            /* Change the background color of the navigation links on hover */
+            .navbar-nav .nav-link:hover {
+                background-color: #555; /* Darker background color on hover */
+            }
+
+        /* Style for the active navigation link */
+        .navbar-nav .nav-item.active .nav-link {
+            background-color: #007bff; /* Active link background color */
+        }
+
+        /* Style for the "Sign Out" button */
+        .navbar-nav .nav-item.signout .nav-link {
+            background-color: #dc3545; /* Red background color for the sign out button */
+        }
+
+        /* Center the company name in the navigation bar */
+        .navbar-brand {
+            margin: 0 auto;
+            padding-left: 20px; /* Add some padding to the left for better spacing */
+        }
+
+        /* Style for the logo image */
+        .navbar-logo {
+            height: 45px; /* Adjust the height as needed */
+            margin-left: 0px; /* Add some space between the logo and the brand name */
+            width: 55px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <div class="container">
+                <img src="~/titan2.png" alt="Logo" class="navbar-logo" style="border-radius:10px" />
+                <a class="navbar-brand" style="font-size:26px; font-family:Poppins; align-items:center;margin-right:400px;">TITAN Company Limited</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+            </div>
+        </nav>
+
+    </div>
+
+    <div class="login-box">
+        <h2 class="login-title" style="font-family:Poppins; Font-size:36px;font-weight:bold ">USER LOGIN</h2>
+        <form method="post" action="/Invoice/Authenticate">
+            <div class="form-group">
+
+                <input type="text" id="username" name="Username" class="form-control" required style="border-radius:15px; opacity: 0.7;" placeholder="UserName">
+            </div>
+
+            <div class="form-group">
+
+                <input type="password" id="password" name="Password" class="form-control" required style="border-radius:15px; opacity: 0.7;" placeholder="Password">
+            </div>
+
+            <button type="submit" class="login-button" style="border-radius:15px; opacity: 0.9;">Login</button>
+        </form>
+    </div>
+
+
+</body>
+</html>
